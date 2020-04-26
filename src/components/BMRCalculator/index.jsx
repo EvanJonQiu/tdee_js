@@ -1,6 +1,8 @@
 import React from "react";
+import { connect } from "react-redux";
 import styles from "./index.scss";
 import { Segment, Header, Container, Form, Grid } from "semantic-ui-react";
+import { bmr_calculate } from "../../redux/actions";
 
 class BMR extends React.Component {
   state = {
@@ -32,9 +34,12 @@ class BMR extends React.Component {
   }
 
   onSubmit = () => {
+    let bmr = this.calculateBMR({...this.state})
     this.setState({
-      bmr: this.calculateBMR({...this.state})
+      bmr: bmr
     });
+
+    this.props.bmr_calculate({...this.state, bmr: bmr});
   }
 
   render() {
@@ -107,4 +112,16 @@ class BMR extends React.Component {
   }
 }
 
-export default BMR;
+const mapStateToProps = state => {
+  return {
+    bmr: state.bmr
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    bmr_calculate: params => dispatch(bmr_calculate(params))
+  };
+}
+
+export default connect(mapStateToProps, {bmr_calculate})(BMR);

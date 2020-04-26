@@ -97,7 +97,8 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       title: "An example of webpack 4 & react",
-      filename: "index.html"
+      filename: "index.html",
+      favicon: "./src/assets/gnu.png"
     }),
     new CopyPlugin([
       { from: './public' },

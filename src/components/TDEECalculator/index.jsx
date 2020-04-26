@@ -1,6 +1,9 @@
 import React from "react";
+import { connect } from "react-redux";
 import styles from "./index.scss";
 import { Segment, Header, Container, Form } from 'semantic-ui-react';
+import { tdee_calculate } from "../../redux/actions";
+import {TDEE_CALCULATE} from "../../redux/actionTypes";
 
 const ExerciseRate = [
   { text: "久坐/无运动习惯 - (Little/no exercise)", value: 1.2 },
@@ -17,9 +20,19 @@ class TdeeCalculator extends React.Component {
   };
 
   onSubmit = () => {
-    this.setState({
-      tdee: 90 * this.state.exerciseRate
-    })
+    const {dispatch} = this.props;
+    const {bmr} = this.props.bmr;
+    if (bmr > 0) {
+      let tdee = bmr * this.state.exerciseRate;
+      this.setState({
+        tdee: tdee
+      });
+
+      dispatch({
+        type: TDEE_CALCULATE,
+        payload: {...this.state, tdee: tdee}
+      });
+    }
   }
 
   onChange = (event, data) => {
@@ -51,4 +64,11 @@ class TdeeCalculator extends React.Component {
   }
 }
 
-export default TdeeCalculator;
+const mapStateToProps = state => {
+  return {
+    bmr: state.bmr,
+    tdee: state.tdee
+  };
+}
+
+export default connect(mapStateToProps)(TdeeCalculator);
