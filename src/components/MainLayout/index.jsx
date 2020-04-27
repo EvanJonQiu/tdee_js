@@ -1,24 +1,24 @@
 import React from 'react';
-import { Container, Header } from 'semantic-ui-react';
-import gnu from "../../assets/gnu.png";
+import { Container, Responsive } from 'semantic-ui-react';
+import { Route, Switch } from 'react-router-dom';
 import BMR from "../BMRCalculator";
 import TdeeCalculator from '../TDEECalculator';
+import MainHeader from "../Header";
+import HomePage from "../HomePage";
 
 class MainLayout extends React.Component {
-  _render() {
-    return (
-      <Container>
-        <Header as="h1">Hello from webpack4 and react</Header>
-        <img src={gnu} alt="gnu.png"/>
-      </Container>
-    );
-  }
   render() {
     return (
-      <Container>
-        <BMR/>
-        <TdeeCalculator/>
-      </Container>
+      <Responsive>
+        <MainHeader/>
+        <Switch>
+          <Route exact path="/" component={HomePage}/>
+          <Container>
+            <Route path="/BMR" component={BMR}/>
+            <Route path="/TDEE" component={TdeeCalculator}/>
+          </Container>
+        </Switch>
+      </Responsive>
     );
   }
 }
