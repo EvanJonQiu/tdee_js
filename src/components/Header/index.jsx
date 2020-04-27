@@ -38,6 +38,11 @@ class Header extends React.Component {
             active={activeItem === 'TDEE'}
             onClick={this.handleItemClick}
           />
+          <Menu.Item
+            name='Other'
+            active={activeItem === 'Other'}
+            onClick={this.handleItemClick}
+          />
         </Container>
       </Menu>
     );

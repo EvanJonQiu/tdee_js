@@ -45,69 +45,71 @@ class BMR extends React.Component {
   render() {
     const {age, height, weight, gender, bmr} = this.state;
     return (
-      <Segment className={styles.BMRCal}>
-        <Header as="h2" dividing className={styles.BMRCalHeader}>基础代谢率(Basal Metabolic Rate，BMR)</Header>
-        <Container className={styles.MBRCalForm}>
-          <Form onSubmit={this.onSubmit}>
-            <Grid style={{margin: 0, width: '100%', height: '100%'}}>
-              <Grid.Row style={{padding: 0}}>
-                <Grid.Column>
-                  <Form.Group style={{margin: 0, width: '100%'}}>
-                    <label>性别</label>
-                    <Form.Radio name="gender" label="男" checked={gender === "男"} value="男" onChange={this.onChange}/>
-                    <Form.Radio name="gender" label="女" checked={gender === "女"} value="女" onChange={this.onChange}/>
-                  </Form.Group>
-                </Grid.Column>
-              </Grid.Row>
-              <Grid.Row>
-                <Grid.Column>
-                  <Form.Group widths='equal' style={{margin: 0, width: '100%'}}>
-                    <Form.Input
-                      type="number"
-                      fluid label='年龄'
-                      placeholder='年龄'
-                      name="age"
-                      value={age}
-                      onChange={this.onChange}
-                      min={0}
-                      max={200}/>
-                    <Form.Input
-                      type="number"
-                      fluid label='身高(cm)'
-                      placeholder='身高'
-                      name="height"
-                      value={height}
-                      onChange={this.onChange}
-                      min={0}
-                      max={200}/>
-                    <Form.Input
-                      type="number"
-                      fluid label='体重(kg)'
-                      placeholder='体重'
-                      name="weight"
-                      value={weight}
-                      onChange={this.onChange}
-                      min={0}
-                      max={200}/>
-                  </Form.Group>
-                </Grid.Column>
-              </Grid.Row>
-              <Grid.Row>
-                <Grid.Column>
-                  <Form.Button primary>计算 BMR</Form.Button>
-                </Grid.Column>
-              </Grid.Row>
-              <Grid.Row>
-                <Grid.Column>
-                  {
-                    bmr > 0 ? <Segment>您的BMR为：{bmr} 卡路里(calories)</Segment> : <></>
-                  }
-                </Grid.Column>
-              </Grid.Row>
-            </Grid>
-          </Form>
-        </Container>
-      </Segment>
+      <Container>
+        <Segment className={styles.BMRCal}>
+          <Header as="h2" dividing className={styles.BMRCalHeader}>基础代谢率(Basal Metabolic Rate，BMR)</Header>
+          <Container className={styles.MBRCalForm}>
+            <Form onSubmit={this.onSubmit}>
+              <Grid style={{margin: 0, width: '100%', height: '100%'}}>
+                <Grid.Row style={{padding: 0}}>
+                  <Grid.Column>
+                    <Form.Group style={{margin: 0, width: '100%'}}>
+                      <label>性别</label>
+                      <Form.Radio name="gender" label="男" checked={gender === "男"} value="男" onChange={this.onChange}/>
+                      <Form.Radio name="gender" label="女" checked={gender === "女"} value="女" onChange={this.onChange}/>
+                    </Form.Group>
+                  </Grid.Column>
+                </Grid.Row>
+                <Grid.Row>
+                  <Grid.Column>
+                    <Form.Group widths='equal' style={{margin: 0, width: '100%'}}>
+                      <Form.Input
+                        type="number"
+                        fluid label='年龄'
+                        placeholder='年龄'
+                        name="age"
+                        value={age}
+                        onChange={this.onChange}
+                        min={0}
+                        max={200}/>
+                      <Form.Input
+                        type="number"
+                        fluid label='身高(cm)'
+                        placeholder='身高'
+                        name="height"
+                        value={height}
+                        onChange={this.onChange}
+                        min={0}
+                        max={200}/>
+                      <Form.Input
+                        type="number"
+                        fluid label='体重(kg)'
+                        placeholder='体重'
+                        name="weight"
+                        value={weight}
+                        onChange={this.onChange}
+                        min={0}
+                        max={200}/>
+                    </Form.Group>
+                  </Grid.Column>
+                </Grid.Row>
+                <Grid.Row>
+                  <Grid.Column>
+                    <Form.Button primary>计算 BMR</Form.Button>
+                  </Grid.Column>
+                </Grid.Row>
+                <Grid.Row>
+                  <Grid.Column>
+                    {
+                      bmr > 0 ? <Segment>您的BMR为：{bmr} 卡路里(calories)</Segment> : <></>
+                    }
+                  </Grid.Column>
+                </Grid.Row>
+              </Grid>
+            </Form>
+          </Container>
+        </Segment>
+      </Container>
     );
   }
 }

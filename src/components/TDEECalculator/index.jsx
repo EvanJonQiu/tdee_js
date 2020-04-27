@@ -46,20 +46,22 @@ class TdeeCalculator extends React.Component {
     const {exerciseRate, tdee} = this.state;
 
     return (
-      <Segment className={styles.tdeeCal}>
-        <Header as="h2" dividing className={styles.tdeeCalHeader}>每日消耗热量(Total Daily Energy Expenditure, TDEE)</Header>
-        <Container className={styles.tdeeCalForm}>
-          <Form onSubmit={this.onSubmit}>
-            <Form.Group>
-              <Form.Select fluid label="运动频率" style={{width: 400}} options={ExerciseRate} value={exerciseRate} onChange={this.onChange}/>
-            </Form.Group>
-            <Form.Button primary>计算 TDEE</Form.Button>
-          </Form>
-          {
-            tdee ? <Segment>您的TDEE为：{tdee} 卡路里(calories)</Segment> : <></>
-          }
-        </Container>
-      </Segment>
+      <Container>
+        <Segment className={styles.tdeeCal}>
+          <Header as="h2" dividing className={styles.tdeeCalHeader}>每日消耗热量(Total Daily Energy Expenditure, TDEE)</Header>
+          <Container className={styles.tdeeCalForm}>
+            <Form onSubmit={this.onSubmit}>
+              <Form.Group>
+                <Form.Select fluid label="运动频率" style={{width: 400}} options={ExerciseRate} value={exerciseRate} onChange={this.onChange}/>
+              </Form.Group>
+              <Form.Button primary>计算 TDEE</Form.Button>
+            </Form>
+            {
+              tdee ? <Segment>您的TDEE为：{tdee} 卡路里(calories)</Segment> : <></>
+            }
+          </Container>
+        </Segment>
+      </Container>
     );
   }
 }
