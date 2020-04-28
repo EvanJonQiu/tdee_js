@@ -10,6 +10,4 @@ export default createStore(
   applyMiddleware(sagaMiddleware)
 );
 
-export function runSagaMiddleware() {
-  sagaMiddleware.run(rootSaga);
-}
+sagaMiddleware.run(rootSaga);

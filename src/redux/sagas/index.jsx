@@ -1,4 +1,4 @@
-import { takeEvery, take, put, call } from 'redux-saga/effects';
+import { takeEvery, take, put, call, fork } from 'redux-saga/effects';
 import { fetchData } from '../../utils/fetcWrapper';
 
 async function getData() {
@@ -12,8 +12,7 @@ async function getData() {
   return data;
 }
 
-function* loadDataEffect() {
-  const action = yield take("OTHER_LOAD_DATA_EFFECT");
+function* loadDataEffect(action) {
   let data = yield call(getData);
   yield put({
     type: "OTHER_LOAD_DATA",
@@ -24,5 +23,5 @@ function* loadDataEffect() {
 }
 
 export default function* rootSaga() {
-  yield takeEvery("OTHER_LOAD_DATA_EFFECT", loadDataEffect);
+    yield takeEvery("OTHER_LOAD_DATA_EFFECT", loadDataEffect);
 }
