@@ -4,9 +4,7 @@ import MainLayout from './components/MainLayout';
 import {Provider} from "react-redux";
 import store from "./redux/store";
 import {HashRouter} from 'react-router-dom';
-
 import "./main.css";
-//import './semantic-ui/semantic.less';
 import 'semantic-ui-less/semantic.less'
 
 ReactDOM.render(
