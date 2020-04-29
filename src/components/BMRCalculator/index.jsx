@@ -101,7 +101,7 @@ class BMR extends React.Component {
                 <Grid.Row>
                   <Grid.Column>
                     {
-                      bmr > 0 ? <Segment>您的BMR为：{bmr} 卡路里(calories)</Segment> : <></>
+                      bmr > 0 ? <Segment>您的BMR为：{bmr} 千卡(kCal)</Segment> : <></>
                     }
                   </Grid.Column>
                 </Grid.Row>

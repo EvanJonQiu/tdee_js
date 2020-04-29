@@ -57,7 +57,7 @@ class TdeeCalculator extends React.Component {
               <Form.Button primary>计算 TDEE</Form.Button>
             </Form>
             {
-              tdee ? <Segment>您的TDEE为：{tdee} 卡路里(calories)</Segment> : <></>
+              tdee ? <Segment>您的TDEE为：{tdee} 千卡(kCal)</Segment> : <></>
             }
           </Container>
         </Segment>
