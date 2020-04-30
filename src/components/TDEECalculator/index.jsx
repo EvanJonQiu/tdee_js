@@ -16,7 +16,8 @@ const ExerciseRate = [
 class TdeeCalculator extends React.Component {
   state = {
     exerciseRate: 1.2,
-    tdee: 0
+    tdee: 0,
+    execiseGoal: 'FatLoss'
   };
 
   onSubmit = () => {
@@ -42,8 +43,14 @@ class TdeeCalculator extends React.Component {
     });
   }
 
+  onTargetChange = (event, {value}) => {
+    this.setState({
+      execiseGoal: value
+    });
+  }
+
   render() {
-    const {exerciseRate, tdee} = this.state;
+    const { exerciseRate, tdee, execiseGoal } = this.state;
 
     return (
       <Container>
@@ -59,6 +66,30 @@ class TdeeCalculator extends React.Component {
             {
               tdee ? <Segment>您的TDEE为：{tdee} 千卡(kCal)</Segment> : <></>
             }
+          </Container>
+        </Segment>
+        <Segment>
+          <Container className={styles.tdeeCalForm}>
+            <Form>
+              <label style={{float: "left"}}>目标</label>
+              <Form.Group>
+                <Form.Radio
+                  label="减脂"
+                  value="FatLoss"
+                  checked={execiseGoal === "FatLoss"}
+                  onChange={this.onTargetChange}/>
+                <Form.Radio
+                  label="维持"
+                  value="Maintenance"
+                  checked={execiseGoal === "Maintenance"}
+                  onChange={this.onTargetChange}/>
+                <Form.Radio
+                  label="增肌"
+                  value="MuscleGainz"
+                  checked={execiseGoal === "MuscleGainz"}
+                  onChange={this.onTargetChange}/>
+              </Form.Group>
+            </Form>
           </Container>
         </Segment>
       </Container>
