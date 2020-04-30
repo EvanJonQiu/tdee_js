@@ -1,4 +1,4 @@
-import fetch from "node-fetch";
+import fetch from "isomorphic-fetch";
 
 function fetchData(url, options) {
   return fetch(url).then(response => {
