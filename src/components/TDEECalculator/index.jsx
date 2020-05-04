@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import styles from "./index.scss";
-import { Segment, Header, Container, Form } from 'semantic-ui-react';
+import { Segment, Header, Container, Form, Input, Label } from 'semantic-ui-react';
 import { tdee_calculate } from "../../redux/actions";
 import {TDEE_CALCULATE} from "../../redux/actionTypes";
 
@@ -17,7 +17,11 @@ class TdeeCalculator extends React.Component {
   state = {
     exerciseRate: 1.2,
     tdee: 0,
-    execiseGoal: 'FatLoss'
+    goalTdee: 0,
+    execiseGoal: 'FatLoss',
+    fat: 0,
+    protein: 0,
+    carb: 0
   };
 
   onSubmit = () => {
@@ -44,13 +48,74 @@ class TdeeCalculator extends React.Component {
   }
 
   onTargetChange = (event, {value}) => {
+    const {tdee} = this.state;
+    let ret;
+
+    if (tdee > 0) {
+      if (value === "FatLoss") {
+        ret = this.calcFatLoss();
+      } else if (value === "MuscleGainz") {
+        ret = this.calcMuscleGainz();
+      } else {
+        ret = this.calcMaintenance();
+      }
+    }
     this.setState({
-      execiseGoal: value
+      execiseGoal: value,
+      ...ret
     });
   }
 
+  calcFatLoss() {
+    const {tdee} = this.state;
+    const {weight} = this.props.bmr;
+    let goalTdee = tdee - (tdee * 0.1);
+    let protein = weight * 2;
+    let fat = (tdee * 0.25) / 9;
+    let carb = (tdee - protein - fat) / 4;
+
+    return {
+      goalTdee: goalTdee,
+      protein: protein.toFixed(2),
+      fat: fat.toFixed(2),
+      carb: carb.toFixed(2)
+    };
+  }
+
+  calcMaintenance() {
+    const {tdee} = this.state;
+    const {weight} = this.props.bmr;
+    let goalTdee = tdee;
+    let protein = weight * 1;
+    let fat = (tdee * 0.2) / 9;
+    let carb = (tdee - protein - fat) / 4;
+
+    return {
+      goalTdee: goalTdee,
+      protein: protein.toFixed(2),
+      fat: fat.toFixed(2),
+      carb: carb.toFixed(2)
+    };
+  }
+
+  calcMuscleGainz() {
+    const {tdee} = this.state;
+    const {weight} = this.props.bmr;
+    let goalTdee = tdee + (tdee * 0.1);
+    let protein = weight * 1.5;
+    let fat = (tdee * 0.20) / 9;
+    let carb = (tdee - protein - fat) / 4;
+
+    return {
+      goalTdee: goalTdee,
+      protein: protein.toFixed(2),
+      fat: fat.toFixed(2),
+      carb: carb.toFixed(2)
+    };
+  }
+
   render() {
-    const { exerciseRate, tdee, execiseGoal } = this.state;
+    const { exerciseRate, tdee, execiseGoal, goalTdee, protein, fat, carb } = this.state;
 
     return (
       <Container>
@@ -90,6 +155,26 @@ class TdeeCalculator extends React.Component {
                   onChange={this.onTargetChange}/>
               </Form.Group>
             </Form>
+            <Segment>
+              您的目标TDEE为: {goalTdee} 千卡(kCal)
+            </Segment>
+            <Segment>
+              <Input labelPosition='right' type='text' style={{marginBottom: 5}}>
+                <Label basic style={{width: 100}}>蛋白质</Label>
+                <input disabled value={protein}/>
+                <Label>克</Label>
+              </Input>
+              <Input labelPosition='right' type='text' style={{marginBottom: 5}}>
+                <Label basic style={{width: 100}}>脂肪</Label>
+                <input disabled value={fat}/>
+                <Label>克</Label>
+              </Input>
+              <Input labelPosition='right' type='text' style={{marginBottom: 5}}>
+                <Label basic style={{width: 100}}>碳水化合物</Label>
+                <input disabled value={carb}/>
+                <Label>克</Label>
+              </Input>
+            </Segment>
           </Container>
         </Segment>
       </Container>
