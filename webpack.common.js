@@ -19,9 +19,12 @@ const isDev = process.env.NODE_ENV === 'development';
 
 module.exports = {
   mode: process.argv[mode_index + 1],
-  entry: "./src/main.jsx",
+  entry: {
+    pageOne: "./src/main.jsx",
+    pageTwo: "./src/main2.jsx"
+  },
   output: {
-    filename: "bundle.js",
+    filename: "[name]-bundle.js",
     path: path.resolve(__dirname, "./dist")
   },
   module: {
@@ -97,7 +100,14 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       title: "An example of webpack 4 & react",
+      chunks: ["pageOne"],
       filename: "index.html",
+      favicon: "./src/assets/gnu.png"
+    }),
+    new HtmlWebpackPlugin({
+      title: "An example of webpack 4 & react",
+      chunks: ["pageTwo"],
+      filename: "index2.html",
       favicon: "./src/assets/gnu.png"
     }),
     new CopyPlugin([
