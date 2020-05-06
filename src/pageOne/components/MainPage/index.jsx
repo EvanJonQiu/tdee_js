@@ -1,6 +1,8 @@
 import React from "react";
-import { Container, Segment, Header, Form, Grid, Input, Label } from "semantic-ui-react";
+import { Container, Segment, Header, Form, Grid, Tab } from "semantic-ui-react";
 import styles from "./index.scss";
+import NormalGoals from "../NormalGoals";
+import CustomGoals from "../CustomGoals";
 
 const ExerciseRate = [
   { text: "久坐/无运动习惯 - (Little/no exercise)", value: 1.2 },
@@ -8,6 +10,13 @@ const ExerciseRate = [
   { text: "每周运动3-5天 - (Moderate exercise)", value: 1.55 },
   { text: "每周运动6-7天 - (Very active)", value: 1.725 },
   { text: "激烈运动者/体力活工作 - (Extra active)", value: 1.9 }
+];
+
+const EatTimes = [
+  { text: "每日3次", value: 3 },
+  { text: "每日4次", value: 4 },
+  { text: "每日5次", value: 5 },
+  { text: "每日6次", value: 6 }
 ];
 
 class MainPage extends React.Component {
@@ -22,9 +31,7 @@ class MainPage extends React.Component {
     tdee: 0,
     goalTdee: 0,
     execiseGoal: 'FatLoss',
-    fat: 0,
-    protein: 0,
-    carb: 0
+    eatTimes: 3
   };
 
   calculateBMR() {
@@ -55,11 +62,21 @@ class MainPage extends React.Component {
   };
 
   onTdeeSubmit = () => {
-    const {bmr} = this.state;
+    const {bmr, execiseGoal} = this.state;
     if (bmr > 0) {
       let tdee = bmr * this.state.exerciseRate;
+      let ret;
+      if (execiseGoal === "FatLoss") {
+        ret = tdee - (tdee * 0.1);
+      } else if (execiseGoal === "MuscleGainz") {
+        ret = tdee + (tdee * 0.1);
+      } else {
+        ret = tdee;
+      }
+
       this.setState({
-        tdee: tdee
+        tdee: tdee,
+        goalTdee: ret
       });
     }
   };
@@ -77,66 +94,36 @@ class MainPage extends React.Component {
 
     if (tdee > 0) {
       if (value === "FatLoss") {
-        ret = this.calcFatLoss();
+        ret = tdee - (tdee * 0.1);
       } else if (value === "MuscleGainz") {
-        ret = this.calcMuscleGainz();
+        ret = tdee + (tdee * 0.1);
       } else {
-        ret = this.calcMaintenance();
+        ret = tdee;
       }
     }
     this.setState({
       execiseGoal: value,
-      ...ret
+      goalTdee: ret.toFixed(2)
     });
   };
 
-  calcFatLoss() {
-    const {tdee, weight} = this.state;
-    let goalTdee = tdee - (tdee * 0.1);
-    let protein = weight * 2;
-    let fat = (tdee * 0.25) / 9;
-    let carb = (tdee - protein - fat) / 4;
+  onEatTimesChange = (evt, data) => {
+    const {value} = data;
+    this.setState({
+      eatTimes: value
+    });
+  };
 
-    return {
-      goalTdee: goalTdee,
-      protein: protein.toFixed(2),
-      fat: fat.toFixed(2),
-      carb: carb.toFixed(2)
-    };
-  }
-
-  calcMaintenance() {
-    const {tdee, weight} = this.state;
-    let goalTdee = tdee;
-    let protein = weight * 1;
-    let fat = (tdee * 0.2) / 9;
-    let carb = (tdee - protein - fat) / 4;
-
-    return {
-      goalTdee: goalTdee,
-      protein: protein.toFixed(2),
-      fat: fat.toFixed(2),
-      carb: carb.toFixed(2)
-    };
-  }
-
-  calcMuscleGainz() {
-    const {tdee, weight} = this.state;
-    let goalTdee = tdee + (tdee * 0.1);
-    let protein = weight * 1.5;
-    let fat = (tdee * 0.20) / 9;
-    let carb = (tdee - protein - fat) / 4;
-
-    return {
-      goalTdee: goalTdee,
-      protein: protein.toFixed(2),
-      fat: fat.toFixed(2),
-      carb: carb.toFixed(2)
-    };
-  }
+  renderPanels = () => {
+    const panels = [
+      { menuItem: '普通目标', render: () => <NormalGoals data={this.state}/> },
+      { menuItem: '自定义目标', render: () => <CustomGoals data={this.state}/> }
+    ];
+    return panels;
+  };
 
   render() {
-    const {age, height, weight, gender, bmr, exerciseRate, tdee, execiseGoal, goalTdee, protein, fat, carb} = this.state;
+    const {age, height, weight, gender, bmr, exerciseRate, tdee, execiseGoal, goalTdee, eatTimes} = this.state;
 
     return (
       <Container>
@@ -238,27 +225,16 @@ class MainPage extends React.Component {
                   checked={execiseGoal === "MuscleGainz"}
                   onChange={this.onTargetChange}/>
               </Form.Group>
+              <Form.Group>
+                <Form.Select fluid label="每日摄入次数" style={{width: 400}} options={EatTimes} value={eatTimes} onChange={this.onEatTimesChange}/>
+              </Form.Group>
             </Form>
             <Segment>
               您的目标TDEE为: {goalTdee} 千卡(kCal)
             </Segment>
-            <Segment>
-              <Input labelPosition='right' type='text' style={{marginBottom: 5}}>
-                <Label basic style={{width: 100}}>蛋白质</Label>
-                <input disabled value={protein}/>
-                <Label>克</Label>
-              </Input>
-              <Input labelPosition='right' type='text' style={{marginBottom: 5}}>
-                <Label basic style={{width: 100}}>脂肪</Label>
-                <input disabled value={fat}/>
-                <Label>克</Label>
-              </Input>
-              <Input labelPosition='right' type='text' style={{marginBottom: 5}}>
-                <Label basic style={{width: 100}}>碳水化合物</Label>
-                <input disabled value={carb}/>
-                <Label>克</Label>
-              </Input>
-            </Segment>
+          </Container>
+          <Container className={styles.MBRCalForm} style={{paddingTop: 10}}>
+            <Tab panes={this.renderPanels()} />
           </Container>
         </Segment>
       </Container>
