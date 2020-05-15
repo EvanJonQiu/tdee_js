@@ -99,13 +99,13 @@ module.exports = {
       chunkFilename: '[id].css'
     }),
     new HtmlWebpackPlugin({
-      title: "An example of webpack 4 & react",
+      title: "TDEE 计算器",
       chunks: ["pageTwo"],
       filename: "index.html",
       favicon: "./src/assets/gnu.png"
     }),
     new HtmlWebpackPlugin({
-      title: "An example of webpack 4 & react",
+      title: "TDEE 计算器",
       chunks: ["pageOne"],
       filename: "index2.html",
       favicon: "./src/assets/gnu.png"
