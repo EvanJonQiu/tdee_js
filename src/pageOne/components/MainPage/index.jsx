@@ -100,11 +100,11 @@ class MainPage extends React.Component {
       } else {
         ret = tdee;
       }
+      this.setState({
+        execiseGoal: value,
+        goalTdee: ret.toFixed(2)
+      });
     }
-    this.setState({
-      execiseGoal: value,
-      goalTdee: ret.toFixed(2)
-    });
   };
 
   onEatTimesChange = (evt, data) => {
@@ -194,9 +194,7 @@ class MainPage extends React.Component {
           <Header as="h2" dividing>每日消耗热量(Total Daily Energy Expenditure, TDEE)</Header>
           <Container className={styles.MBRCalForm}>
             <Form onSubmit={this.onTdeeSubmit}>
-              <Form.Group>
-                <Form.Select fluid label="运动频率" style={{width: 400}} options={ExerciseRate} value={exerciseRate} onChange={this.onExerciseChange}/>
-              </Form.Group>
+              <Form.Select fluid label="运动频率" style={{width: "100%"}} options={ExerciseRate} value={exerciseRate} onChange={this.onExerciseChange}/>
               <Form.Button primary>计算 TDEE</Form.Button>
             </Form>
             {
@@ -225,9 +223,7 @@ class MainPage extends React.Component {
                   checked={execiseGoal === "MuscleGainz"}
                   onChange={this.onTargetChange}/>
               </Form.Group>
-              <Form.Group>
-                <Form.Select fluid label="每日摄入次数" style={{width: 400}} options={EatTimes} value={eatTimes} onChange={this.onEatTimesChange}/>
-              </Form.Group>
+              <Form.Select fluid label="每日摄入次数" style={{width: "100%"}} options={EatTimes} value={eatTimes} onChange={this.onEatTimesChange}/>
             </Form>
             <Segment>
               您的目标TDEE为: {goalTdee} 千卡(kCal)

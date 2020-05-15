@@ -100,13 +100,13 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       title: "An example of webpack 4 & react",
-      chunks: ["pageOne"],
+      chunks: ["pageTwo"],
       filename: "index.html",
       favicon: "./src/assets/gnu.png"
     }),
     new HtmlWebpackPlugin({
       title: "An example of webpack 4 & react",
-      chunks: ["pageTwo"],
+      chunks: ["pageOne"],
       filename: "index2.html",
       favicon: "./src/assets/gnu.png"
     }),

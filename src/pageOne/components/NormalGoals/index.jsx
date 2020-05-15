@@ -1,5 +1,6 @@
 import React from "react";
-import { Tab, Segment, Input, Label, Button } from "semantic-ui-react";
+import styles from "./index.scss";
+import { Tab, Segment, Button, Form} from "semantic-ui-react";
 
 class NormalGoals extends React.Component {
 
@@ -73,22 +74,12 @@ class NormalGoals extends React.Component {
     return (
       <Tab.Pane>
         <Segment>
-          <Button primary onClick={this.onClick} style={{marginBottom: 5}}>计算每日摄取量</Button>
-          <Input labelPosition='right' type='text' style={{marginBottom: 5}}>
-            <Label basic style={{width: 100}}>蛋白质</Label>
-            <input disabled value={protein}/>
-            <Label>克</Label>
-          </Input>
-          <Input labelPosition='right' type='text' style={{marginBottom: 5}}>
-            <Label basic style={{width: 100}}>脂肪</Label>
-            <input disabled value={fat}/>
-            <Label>克</Label>
-          </Input>
-          <Input labelPosition='right' type='text' style={{marginBottom: 5}}>
-            <Label basic style={{width: 100}}>碳水化合物</Label>
-            <input disabled value={carb}/>
-            <Label>克</Label>
-          </Input>
+          <Form>
+            <Button primary onClick={this.onClick} style={{marginBottom: 5}}>计算每日摄取量</Button>
+            <Form.Input label="蛋白质（克）" readOnly style={{textAlign: "center"}} value={protein} className={styles.resultBox}/>
+            <Form.Input label="脂肪（克）" readOnly style={{textAlign: "center"}} value={fat} className={styles.resultBox}/>
+            <Form.Input label="碳水化合物（克）" readOnly style={{textAlign: "center"}} value={carb} className={styles.resultBox}/>
+          </Form>
         </Segment>
       </Tab.Pane>
     );

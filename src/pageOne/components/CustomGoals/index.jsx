@@ -1,5 +1,6 @@
 import React from "react";
-import { Tab, Segment, Form, Grid, Input, Label } from "semantic-ui-react";
+import { Tab, Segment, Form, Grid } from "semantic-ui-react";
+import styles from "./index.scss";
 
 class CustomGoals extends React.Component {
   state = {
@@ -99,11 +100,12 @@ class CustomGoals extends React.Component {
                       value={customProtein}
                       onChange={this.onCustomChange}
                       min={1.5}
-                      max={2.2}/>
+                      max={2.2}
+                      step={0.1}/>
                     <Form.Input
                       type="number"
-                      fluid label='脂肪输入比例（%）'
-                      placeholder='脂肪输入比例'
+                      fluid label='脂肪摄入比例（%）'
+                      placeholder='脂肪摄入比例'
                       name="customFat"
                       value={customFat}
                       onChange={this.onCustomChange}
@@ -121,21 +123,11 @@ class CustomGoals extends React.Component {
           </Form>
         </Segment>
         <Segment>
-          <Input labelPosition='right' type='text' style={{marginBottom: 5}}>
-            <Label basic style={{width: 100}}>蛋白质</Label>
-            <input disabled value={protein}/>
-            <Label>克</Label>
-          </Input>
-          <Input labelPosition='right' type='text' style={{marginBottom: 5}}>
-            <Label basic style={{width: 100}}>脂肪</Label>
-            <input disabled value={fat}/>
-            <Label>克</Label>
-          </Input>
-          <Input labelPosition='right' type='text' style={{marginBottom: 5}}>
-            <Label basic style={{width: 100}}>碳水化合物</Label>
-            <input disabled value={carb}/>
-            <Label>克</Label>
-          </Input>
+          <Form>
+            <Form.Input label="蛋白质（克）" readOnly style={{textAlign: "center"}} value={protein} className={styles.resultBox}/>
+            <Form.Input label="脂肪（克）" readOnly style={{textAlign: "center"}} value={fat} className={styles.resultBox}/>
+            <Form.Input label="碳水化合物（克）" readOnly style={{textAlign: "center"}} value={carb} className={styles.resultBox}/>
+          </Form>
         </Segment>
       </Tab.Pane>
     );
