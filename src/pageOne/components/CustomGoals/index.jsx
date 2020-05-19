@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import { Tab, Segment, Form, Grid } from "semantic-ui-react";
 import styles from "./index.scss";
 
@@ -13,12 +13,13 @@ class CustomGoals extends React.Component {
   };
 
   calcFatLoss() {
-    const {goalTdee, weight, eatTimes} = this.props.data;
-    const {customProtein, customFat} = this.state;
+    const { goalTdee, weight, eatTimes } = this.props.data;
+    const { customProtein, customFat } = this.state;
 
-    let protein = weight * customProtein / eatTimes;
-    let fat = (goalTdee * customFat / 100) / 9 / eatTimes;
-    let carb = (goalTdee - protein * 4 - goalTdee * customFat / 100) / 4 / eatTimes;
+    let protein = (weight * customProtein) / eatTimes;
+    let fat = (goalTdee * customFat) / 100 / 9 / eatTimes;
+    let carb =
+      (goalTdee - protein * 4 - (goalTdee * customFat) / 100) / 4 / eatTimes;
 
     return {
       protein: protein.toFixed(2),
@@ -28,12 +29,13 @@ class CustomGoals extends React.Component {
   }
 
   calcMaintenance() {
-    const {goalTdee, weight, eatTimes} = this.props.data;
-    const {customFat} = this.state;
+    const { goalTdee, weight, eatTimes } = this.props.data;
+    const { customFat } = this.state;
 
-    let protein = weight * 1 / eatTimes;
-    let fat = (goalTdee * customFat / 100) / 9 / eatTimes;
-    let carb = (goalTdee - protein * 4 - goalTdee * customFat / 100) / 4 / eatTimes;
+    let protein = (weight * 1) / eatTimes;
+    let fat = (goalTdee * customFat) / 100 / 9 / eatTimes;
+    let carb =
+      (goalTdee - protein * 4 - (goalTdee * customFat) / 100) / 4 / eatTimes;
 
     return {
       protein: protein.toFixed(2),
@@ -43,12 +45,13 @@ class CustomGoals extends React.Component {
   }
 
   calcMuscleGainz() {
-    const {goalTdee, weight, eatTimes} = this.props.data;
-    const {customProtein, customFat} = this.state;
+    const { goalTdee, weight, eatTimes } = this.props.data;
+    const { customProtein, customFat } = this.state;
 
-    let protein = weight * customProtein / eatTimes;
-    let fat = (goalTdee * customFat / 100) / 9 / eatTimes;
-    let carb = (goalTdee - protein * 4 - goalTdee * customFat / 100) / 4 / eatTimes;
+    let protein = (weight * customProtein) / eatTimes;
+    let fat = (goalTdee * customFat) / 100 / 9 / eatTimes;
+    let carb =
+      (goalTdee - protein * 4 - (goalTdee * customFat) / 100) / 4 / eatTimes;
 
     return {
       protein: protein.toFixed(2),
@@ -58,7 +61,7 @@ class CustomGoals extends React.Component {
   }
 
   onSubmit = () => {
-    const {goalTdee, execiseGoal} = this.props.data;
+    const { goalTdee, execiseGoal } = this.props.data;
     let ret;
 
     if (goalTdee > 0) {
@@ -77,14 +80,14 @@ class CustomGoals extends React.Component {
   };
 
   onCustomChange = (evt, data) => {
-    let {name, value} = data;
+    let { name, value } = data;
     this.setState({
       [name]: value
     });
   };
 
   render() {
-    const {customProtein, customFat, protein, fat, carb} = this.state;
+    const { customProtein, customFat, protein, fat, carb } = this.state;
     return (
       <Tab.Pane>
         <Segment>
@@ -92,26 +95,33 @@ class CustomGoals extends React.Component {
             <Grid>
               <Grid.Row>
                 <Grid.Column>
-                  <Form.Group widths='equal' style={{margin: 0, width: '100%'}}>
+                  <Form.Group
+                    widths="equal"
+                    style={{ margin: 0, width: "100%" }}
+                  >
                     <Form.Input
                       type="number"
-                      fluid label='蛋白质（克/公斤）'
-                      placeholder='蛋白质（克/公斤）'
+                      fluid
+                      label="蛋白质（克/公斤）"
+                      placeholder="蛋白质（克/公斤）"
                       name="customProtein"
                       value={customProtein}
                       onChange={this.onCustomChange}
                       min={1.5}
                       max={2.2}
-                      step={0.1}/>
+                      step={0.1}
+                    />
                     <Form.Input
                       type="number"
-                      fluid label='脂肪摄入比例（%）'
-                      placeholder='脂肪摄入比例'
+                      fluid
+                      label="脂肪摄入比例（%）"
+                      placeholder="脂肪摄入比例"
                       name="customFat"
                       value={customFat}
                       onChange={this.onCustomChange}
                       min={0}
-                      max={100}/>
+                      max={100}
+                    />
                   </Form.Group>
                 </Grid.Column>
               </Grid.Row>
@@ -125,9 +135,27 @@ class CustomGoals extends React.Component {
         </Segment>
         <Segment>
           <Form>
-            <Form.Input label="蛋白质（克）" readOnly style={{textAlign: "center"}} value={protein} className={styles.resultBox}/>
-            <Form.Input label="脂肪（克）" readOnly style={{textAlign: "center"}} value={fat} className={styles.resultBox}/>
-            <Form.Input label="碳水化合物（克）" readOnly style={{textAlign: "center"}} value={carb} className={styles.resultBox}/>
+            <Form.Input
+              label="蛋白质（克）"
+              readOnly
+              style={{ textAlign: "center" }}
+              value={protein}
+              className={styles.resultBox}
+            />
+            <Form.Input
+              label="脂肪（克）"
+              readOnly
+              style={{ textAlign: "center" }}
+              value={fat}
+              className={styles.resultBox}
+            />
+            <Form.Input
+              label="碳水化合物（克）"
+              readOnly
+              style={{ textAlign: "center" }}
+              value={carb}
+              className={styles.resultBox}
+            />
           </Form>
         </Segment>
       </Tab.Pane>

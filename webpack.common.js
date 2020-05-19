@@ -1,21 +1,21 @@
 const path = require("path");
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 
-let mode = 'production';
+let mode = "production";
 let mode_index = 0;
 
 process.argv.forEach((val, index) => {
-  if (val === '--mode') {
+  if (val === "--mode") {
     mode_index = index;
   }
 });
 
 process.env.NODE_ENV = process.argv[mode_index + 1];
 
-const isDev = process.env.NODE_ENV === 'development';
+const isDev = process.env.NODE_ENV === "development";
 
 module.exports = {
   mode: process.argv[mode_index + 1],
@@ -31,10 +31,8 @@ module.exports = {
     rules: [
       {
         test: /\.jsx?$/,
-        exclude: /node_modules/, 
-        include: [
-          path.resolve(__dirname, 'src')
-        ],
+        exclude: /node_modules/,
+        include: [path.resolve(__dirname, "src")],
         use: [
           {
             loader: "babel-loader",
@@ -77,7 +75,7 @@ module.exports = {
           {
             loader: "url-loader",
             options: {
-              name: '[name]_[sha512:hash:base64:7].[ext]',
+              name: "[name]_[sha512:hash:base64:7].[ext]",
               limit: 1024 * 30,
               fallback: "file-loader"
             }
@@ -88,15 +86,18 @@ module.exports = {
   },
   resolve: {
     alias: {
-      '../../theme.config$': path.resolve(__dirname, 'src/semantic-ui/theme.config')
+      "../../theme.config$": path.resolve(
+        __dirname,
+        "src/semantic-ui/theme.config"
+      )
     },
     extensions: [".jsx", ".js", ".json"]
   },
   plugins: [
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
-      filename: '[name].css',
-      chunkFilename: '[id].css'
+      filename: "[name].css",
+      chunkFilename: "[id].css"
     }),
     new HtmlWebpackPlugin({
       title: "TDEE 计算器",
@@ -110,11 +111,9 @@ module.exports = {
       filename: "index2.html",
       favicon: "./src/assets/gnu.png"
     }),
-    new CopyPlugin([
-      { from: './public' },
-    ])
+    new CopyPlugin([{ from: "./public" }])
   ],
-  devtool: isDev ? 'source-map' : undefined,
+  devtool: isDev ? "source-map" : undefined,
   watch: isDev ? true : false,
   watchOptions: {
     ignored: /node_modules/,
