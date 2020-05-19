@@ -12,7 +12,7 @@ async function getData() {
   return data;
 }
 
-function* loadDataEffect(action) {
+function* loadDataEffect() {
   let data = yield call(getData);
   yield put({
     type: "OTHER_LOAD_DATA",

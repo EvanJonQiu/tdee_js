@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Menu, Container, Image } from 'semantic-ui-react';
 import {withRouter} from 'react-router-dom';
 import gnu from "../../assets/gnu.png";
@@ -48,5 +49,9 @@ class Header extends React.Component {
     );
   }
 }
+
+Header.propTypes = {
+  history: PropTypes.object
+};
 
 export default withRouter(Header);

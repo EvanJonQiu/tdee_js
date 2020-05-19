@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import { Tab, Segment, Form, Grid } from "semantic-ui-react";
 import styles from "./index.scss";
 
@@ -28,7 +29,7 @@ class CustomGoals extends React.Component {
 
   calcMaintenance() {
     const {goalTdee, weight, eatTimes} = this.props.data;
-    const {customProtein, customFat} = this.state;
+    const {customFat} = this.state;
 
     let protein = weight * 1 / eatTimes;
     let fat = (goalTdee * customFat / 100) / 9 / eatTimes;
@@ -133,5 +134,15 @@ class CustomGoals extends React.Component {
     );
   }
 }
+
+CustomGoals.propTypes = {
+  data: PropTypes.shape({
+    goalTdee: PropTypes.number,
+    weight: PropTypes.number,
+    eatTimes: PropTypes.number,
+    execiseGoal: PropTypes.number,
+    customProtein: PropTypes.number
+  })
+};
 
 export default CustomGoals;

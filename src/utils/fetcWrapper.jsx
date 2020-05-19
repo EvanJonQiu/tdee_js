@@ -1,6 +1,6 @@
 import fetch from "isomorphic-fetch";
 
-function fetchData(url, options) {
+function fetchData(url) {
   return fetch(url).then(response => {
     if (response.status >= 200 && response.status < 302) {
       return response;

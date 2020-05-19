@@ -1,8 +1,8 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import styles from "./index.scss";
 import { Segment, Header, Container, Form, Input, Label } from 'semantic-ui-react';
-import { tdee_calculate } from "../../redux/actions";
 import {TDEE_CALCULATE} from "../../redux/actionTypes";
 
 const ExerciseRate = [
@@ -181,6 +181,14 @@ class TdeeCalculator extends React.Component {
     );
   }
 }
+
+TdeeCalculator.propTypes = {
+  dispatch: PropTypes.func,
+  bmr: PropTypes.shape({
+    weight: PropTypes.number,
+    bmr: PropTypes.number
+  })
+};
 
 const mapStateToProps = state => {
   return {

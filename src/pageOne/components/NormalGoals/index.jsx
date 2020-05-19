@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import styles from "./index.scss";
 import { Tab, Segment, Button, Form} from "semantic-ui-react";
 
@@ -85,5 +86,15 @@ class NormalGoals extends React.Component {
     );
   }
 }
+
+NormalGoals.propTypes = {
+  data: PropTypes.shape({
+    goalTdee: PropTypes.number,
+    weight: PropTypes.number,
+    eatTimes: PropTypes.number,
+    tdee: PropTypes.number,
+    execiseGoal: PropTypes.number
+  })
+};
 
 export default NormalGoals;

@@ -38,8 +38,6 @@ class BMR extends React.Component {
     this.setState({
       bmr: bmr
     });
-
-    this.props.bmr_calculate({...this.state, bmr: bmr});
   }
 
   render() {
@@ -118,12 +116,6 @@ const mapStateToProps = state => {
   return {
     bmr: state.bmr
   }
-}
-
-const mapDispatchToProps = dispatch => {
-  return {
-    bmr_calculate: params => dispatch(bmr_calculate(params))
-  };
 }
 
 export default connect(mapStateToProps, {bmr_calculate})(BMR);

@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import { Segment, List, Container } from "semantic-ui-react";
 import { connect } from "react-redux";
 import styles from "./index.scss";
@@ -29,6 +30,13 @@ class Other extends React.Component {
     );
   }
 }
+
+Other.propTypes = {
+  dispatch: PropTypes.func,
+  other: PropTypes.exact({
+    data: PropTypes.array
+  })
+};
 
 const mapStateToProps = state => {
   return {
